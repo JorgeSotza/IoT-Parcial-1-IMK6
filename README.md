@@ -1,7 +1,7 @@
 # IoT-Parcial-1-IMK6
 Evaluación del Primer Parcial – Internet de las Cosas (IoT)
 
-==================================================================================================================================================================================================================================================================
+==============================================
 OBJETIVO DE LA EVALUACIÓN
 
 Desarrollar un sistema de monitoreo de temperatura basado en Internet de las Cosas (IoT) utilizando una Raspberry Pi Pico W y un sensor LM35, con el propósito de capturar, procesar y visualizar datos en la nube mediante ThingSpeak. Además, se implementará MathWorks en la plataforma para realizar análisis de datos en tiempo real, como el cálculo del promedio de temperatura y la generación de alertas cuando los valores superen un umbral predefinido.
@@ -12,7 +12,7 @@ El estudiante deberá diseñar un sistema IoT para la medición y monitoreo de t
 ✅ ThingSpeak (almacenamiento y visualización de datos)
 ✅ MathWorks (análisis y procesamiento de datos en ThingSpeak)
 
-==================================================================================================================================================================================================================================================================
+===============================================
 DESARROLLO DE LA EVALUACIÓN
 
 Parte 1: Configuración del Hardware 

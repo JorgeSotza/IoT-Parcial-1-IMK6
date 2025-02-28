@@ -1,0 +1,45 @@
+% CONFIGURACIÓN
+readChannelID = 2854534; % Reemplaza con el ID de tu canal
+writeChannelID = 2854534; % ID del canal donde escribirás el promedio
+readAPIKey = 'CBP2QHLVW9L44LS5'; % API Key de lectura (déjalo vacío si el canal es público)
+writeAPIKey = 'E1NSFB1YJ5X7LT4X'; % API Key de escritura (verifica que sea correcta)
+fieldID = 1; % Campo donde están los datos originales
+
+% INTENTAR LEER LOS ÚLTIMOS 10 DATOS VARIAS VECES
+maxAttempts = 3;
+attempt = 0;
+data = [];
+
+while attempt < maxAttempts && isempty(data)
+    attempt = attempt + 1;
+    data = thingSpeakRead(readChannelID, 'Fields', fieldID, 'NumPoints', 10, 'ReadKey', readAPIKey);
+    pause(2); % Espera 2 segundos entre intentos
+end
+
+% VERIFICAR SI HAY SUFICIENTES DATOS
+if isempty(data) || any(isnan(data))
+    disp("⚠️ No se pudieron obtener suficientes datos después de " + attempt + " intentos.");
+    return;
+end
+
+% CALCULAR EL PROMEDIO
+avgValue = mean(data);
+
+% VERIFICAR QUE EL PROMEDIO SEA VÁLIDO
+if isnan(avgValue) || ismissing(avgValue)
+    disp("⚠️ El promedio no se pudo calcular correctamente.");
+    return;
+end
+
+% MOSTRAR EL PROMEDIO CALCULADO
+disp("????️ Promedio calculado: " + avgValue);
+
+% VERIFICAR QUE EL CANAL DE ESCRITURA Y LA CLAVE API SEAN CORRECTOS
+if isempty(writeAPIKey) || writeChannelID == 0
+    disp("❌ Error: El canal de escritura o la clave API no están configurados correctamente.");
+    return;
+end
+
+% ESCRIBIR EL PROMEDIO EN THINGSPEAK
+thingSpeakWrite(writeChannelID, 'Fields', [2], 'Values', avgValue, 'WriteKey', writeAPIKey);
+disp("✅ Promedio enviado a ThingSpeak.");
